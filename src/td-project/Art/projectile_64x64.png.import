@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csuwh3f3avkg1"
-path="res://.godot/imported/turrets_projectiles.png-2957e96ecc9c7e0943e5421a7c2b93dc.ctex"
+uid="uid://yy5tfjx3li6m"
+path="res://.godot/imported/projectile_64x64.png-412dad4aef3ea4e6741ac7724ff4d85d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/turrets_projectiles.png"
-dest_files=["res://.godot/imported/turrets_projectiles.png-2957e96ecc9c7e0943e5421a7c2b93dc.ctex"]
+source_file="res://Art/projectile_64x64.png"
+dest_files=["res://.godot/imported/projectile_64x64.png-412dad4aef3ea4e6741ac7724ff4d85d.ctex"]
 
 [params]
 
