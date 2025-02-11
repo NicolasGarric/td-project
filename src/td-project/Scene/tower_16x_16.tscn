@@ -25,12 +25,15 @@ position = Vector2(-32, 0)
 rotation = 1.5708
 texture = ExtResource("1_8cgho")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Tower_16x16_range" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower_16x16_range"]
 shape = SubResource("CircleShape2D_stipu")
 
-[node name="Area2D2" type="Area2D" parent="."]
+[node name="Tower_16x16_placeholder" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower_16x16_placeholder"]
 shape = SubResource("RectangleShape2D_agxq3")
+
+[connection signal="area_entered" from="Tower_16x16_range" to="." method="_on_tower_16x_16_range_area_entered"]
+[connection signal="area_exited" from="Tower_16x16_range" to="." method="_on_tower_16x_16_range_area_exited"]
