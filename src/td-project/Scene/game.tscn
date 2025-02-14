@@ -1,10 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvdx7yal160b0"]
+[gd_scene load_steps=4 format=3 uid="uid://cvdx7yal160b0"]
 
 [ext_resource type="Script" path="res://Script/game.gd" id="1_yqwgi"]
 [ext_resource type="PackedScene" uid="uid://b8ehtrj3kg2j7" path="res://Scene/tower_16x_16.tscn" id="2_pbe0e"]
+
+[sub_resource type="Curve2D" id="Curve2D_xwwax"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1146, 303, 0, 0, 0, 0, 4, 302)
+}
+point_count = 2
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqwgi")
 
 [node name="Tower_16x16" parent="." instance=ExtResource("2_pbe0e")]
 position = Vector2(324, 301)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_xwwax")
+
+[node name="WaveTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="EnemyTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]

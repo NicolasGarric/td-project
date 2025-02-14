@@ -10,7 +10,7 @@ radius = 580.022
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_agxq3"]
 size = Vector2(72, 72)
 
-[node name="Tower_16x16" type="Node2D"]
+[node name="Tower_16x16" type="Node2D" groups=["Tower"]]
 script = ExtResource("1_38jgb")
 
 [node name="Tower_16x16" type="Sprite2D" parent="."]
