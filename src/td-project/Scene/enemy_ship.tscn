@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cin4nvg3sjsvw"]
+
+[ext_resource type="Script" path="res://Script/enemy_ship.gd" id="1_7g08e"]
+[ext_resource type="Texture2D" uid="uid://ui0ktvpci4om" path="res://Assets/ennemy_ship_8_8.png" id="1_llbji"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3gn6u"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y7hoh"]
+radius = 1.0
+
+[node name="EnemyShip" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_7g08e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_llbji")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3gn6u")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+scale = Vector2(4, 4)
+shape = SubResource("CircleShape2D_y7hoh")
+one_way_collision_margin = 0.0
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

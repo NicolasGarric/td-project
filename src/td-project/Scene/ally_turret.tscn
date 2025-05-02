@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6s44e1jkktqf"]
+
+[ext_resource type="Script" path="res://Script/ally_turret.gd" id="1_4yt0l"]
+[ext_resource type="Texture2D" uid="uid://i1tlvnq0krd4" path="res://Assets/ally_turret_8_8.png" id="1_trm6t"]
+[ext_resource type="PackedScene" uid="uid://dkqqsaw0wd34l" path="res://Scene/projectile.tscn" id="2_b3u73"]
+
+[node name="AllyTurret" type="Node2D"]
+script = ExtResource("1_4yt0l")
+projectile_scene = ExtResource("2_b3u73")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_trm6t")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(4, 0)
+rotation = -1.5708

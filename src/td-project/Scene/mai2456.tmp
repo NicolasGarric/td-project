@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://sr7q1elc7fy5"]
+
+[ext_resource type="PackedScene" uid="uid://b2wuytgoopnlj" path="res://Scene/ally_ship.tscn" id="1_xx5gc"]
+[ext_resource type="PackedScene" uid="uid://b6s44e1jkktqf" path="res://Scene/ally_turret.tscn" id="2_r3p2c"]
+[ext_resource type="PackedScene" uid="uid://b2oyc0d4g7a0o" path="res://Scene/enemy_spawner.tscn" id="3_51why"]
+
+[node name="Main" type="Node2D"]
+position = Vector2(559, 342)
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="AllyShip" parent="Game" instance=ExtResource("1_xx5gc")]
+
+[node name="AllyTurret" parent="Game/AllyShip" instance=ExtResource("2_r3p2c")]
+position = Vector2(1, 0)
+scale = Vector2(0.5, 0.5)
+
+[node name="EnemySpawner" parent="Game" instance=ExtResource("3_51why")]

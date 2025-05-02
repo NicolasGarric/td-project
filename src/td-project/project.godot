@@ -15,10 +15,21 @@ run/main_scene="res://Scene/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=800
+window/size/viewport_height=600
+
 [global_group]
 
 Tower=""
 Enemy=""
+Projectile=""
+
+[layer_names]
+
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Projectiles"
 
 [rendering]
 
