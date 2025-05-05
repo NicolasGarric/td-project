@@ -1,21 +1,61 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2wuytgoopnlj"]
+[gd_scene load_steps=9 format=3 uid="uid://b3xj4d7ftgpfa"]
 
 [ext_resource type="Texture2D" uid="uid://pr7f1t616epi" path="res://Assets/ally_ship_16_16.png" id="1_aatuu"]
-[ext_resource type="PackedScene" uid="uid://b6s44e1jkktqf" path="res://Scene/ally_turret.tscn" id="2_gi5ta"]
+[ext_resource type="Script" path="res://Script/ally_ship.gd" id="1_ibpu4"]
+[ext_resource type="PackedScene" uid="uid://cbw68hkaft388" path="res://Scene/ally_turret.tscn" id="2_gi5ta"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b71rg"]
-size = Vector2(16, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6n1qb"]
+size = Vector2(16, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0vhis"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_aatuu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_17par"]
+size = Vector2(17, 12)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ca1fp"]
+bg_color = Color(0.176419, 0.176419, 0.176419, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f201f"]
+bg_color = Color(0.104366, 0.725679, 7.70092e-07, 1)
 
 [node name="AllyShip" type="CharacterBody2D"]
+script = ExtResource("1_ibpu4")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_aatuu")
+[node name="AllyShip_Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6n1qb")
 
-[node name="TurretPivot" type="Marker2D" parent="."]
+[node name="AllyShip_Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0vhis")
+
+[node name="AllyTurret" parent="." instance=ExtResource("2_gi5ta")]
 position = Vector2(1, 0)
-
-[node name="AllyTurret" parent="TurretPivot" instance=ExtResource("2_gi5ta")]
 scale = Vector2(0.5, 0.5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_b71rg")
+[node name="AllyShip_HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AllyShip_HurtBox"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_17par")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -47.0
+offset_top = -67.0
+offset_right = 52.0
+offset_bottom = -40.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ca1fp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f201f")
+value = 100.0
+show_percentage = false

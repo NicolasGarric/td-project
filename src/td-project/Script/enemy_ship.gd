@@ -1,19 +1,18 @@
 extends CharacterBody2D
 
-@export var speed: float = 100
+@onready var ally = get_node("../AllyShip")
+
+var enemySpeed = 100.0
+var enemyHealth = 3.00
 
 func _physics_process(delta: float) -> void:
-	# Calcul de la direction vers le vaisseau allié
-	var ship = get_node("../AllyShip")
-	var dir: Vector2 = (ship.global_position - global_position).normalized()
-	# Utilisation de la propriété intégrée 'velocity' de CharacterBody2D
-	velocity = dir * speed
+	var direction = global_position.direction_to(ally.global_position)
+	velocity = direction * enemySpeed
 	move_and_slide()
-	# Rotation pour faire face à la cible
-	rotation = dir.angle()
 
-# Signal appelé par le Hitbox (Area2D)
-func _on_Hitbox_body_entered(body: Node) -> void:
-	if body.is_in_group("Projectile"):
-		body.queue_free()
+
+func take_damage():
+	enemyHealth -= 1
+	
+	if enemyHealth == 0.00:
 		queue_free()

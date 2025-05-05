@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc80b507hpnov"]
+
+[ext_resource type="Texture2D" uid="uid://dquix1a8olyir" path="res://Assets/ally_projectile.png" id="1_ghyf4"]
+[ext_resource type="Script" path="res://Script/ally_projectile.gd" id="1_o7igt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mn3vj"]
+size = Vector2(4, 2)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wt447"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ghyf4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AllyProjectile" type="Area2D"]
+top_level = true
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_o7igt")
+
+[node name="Projectile_Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mn3vj")
+
+[node name="Projectile_Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wt447")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

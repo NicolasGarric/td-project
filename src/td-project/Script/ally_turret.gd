@@ -1,33 +1,25 @@
-extends Node2D
+extends Area2D
 
-@export var shoot_interval: float = 0.5
-@export var projectile_scene: PackedScene
-var cooldown: float = 0.0
+var health = 100.00
+var fire_rate = 0.25
 
-func _process(delta: float) -> void:
-	# Cible = vaisseau central (deux niveaux au-dessus)
-	var ship = get_parent().get_parent()
-	if ship == null:
-		return
+func _physics_process(_delta: float) -> void:
+	var enemies_in_range = get_overlapping_bodies()
+	if enemies_in_range.size() > 0:
+		var target_closest_enemy = enemies_in_range[0]
+		look_at(target_closest_enemy.global_position)
 
-	# Orientation de la tourelle vers la cible
-	var direction: Vector2 = (ship.global_position - global_position).normalized()
-	rotation = direction.angle()
 
-	# Gestion du cooldown et tir
-	cooldown -= delta
-	if cooldown <= 0.0:
-		cooldown = shoot_interval
-		shoot(direction)
+func shoot():
+	const ALLY_PROJECTILE = preload("res://Scene/ally_projectile.tscn")
+	var new_ally_projectile = ALLY_PROJECTILE.instantiate()
+	new_ally_projectile.global_position = %ShootingPoint.global_position
+	new_ally_projectile.global_rotation = %ShootingPoint.global_rotation
+	%ShootingPoint.add_child(new_ally_projectile)
 
-func shoot(direction: Vector2) -> void:
-	var projectile = projectile_scene.instantiate() as RigidBody2D
-	# Placement du projectile à la bouche du canon
-	projectile.global_position = $Muzzle.global_position
-	projectile.rotation = direction.angle()
 
-	# Ajout dans la scène active
-	get_tree().current_scene.add_child(projectile)
-
-	# Vitesse initiale du projectile
-	projectile.linear_velocity = direction * 400.0  # ajuster selon besoins
+func _on_fire_rate_timeout() -> void:
+	var enemies_in_range = get_overlapping_bodies()
+	%FireRate.wait_time = fire_rate
+	if enemies_in_range.size() > 0:
+		shoot()

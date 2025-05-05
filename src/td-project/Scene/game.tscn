@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxqgr5asmx3j5"]
+
+[ext_resource type="PackedScene" uid="uid://b3xj4d7ftgpfa" path="res://Scene/ally_ship.tscn" id="1_1ngip"]
+[ext_resource type="Script" path="res://Script/game.gd" id="1_3m6gn"]
+
+[sub_resource type="Curve2D" id="Curve2D_sjra4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1194, -931, 0, 0, 0, 0, 1167, -925, 0, 0, 0, 0, 1167, 935, 0, 0, 0, 0, 1133, 952, 0, 0, 0, 0, 1133, 952, 0, 0, 0, 0, -1198, 962, 0, 0, 0, 0, -1194, -931)
+}
+point_count = 7
+
+[node name="Game" type="Node2D"]
+position = Vector2(800, 600)
+script = ExtResource("1_3m6gn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105614, 0.105614, 0.105614, 1)
+
+[node name="AllyShip" parent="." instance=ExtResource("1_1ngip")]
+scale = Vector2(5, 5)
+
+[node name="Path2D" type="Path2D" parent="AllyShip"]
+position = Vector2(-2.93409, 11.9753)
+scale = Vector2(0.352643, 0.291918)
+curve = SubResource("Curve2D_sjra4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="AllyShip/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-1194, -931)
+rotation = 0.00254129
+
+[node name="TimerSpawner" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.52549)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.5
+offset_top = -116.0
+offset_right = 131.5
+offset_bottom = -61.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "GAME OVER :("
+
+[connection signal="health_depleted" from="AllyShip" to="." method="_on_ally_ship_health_depleted"]
+[connection signal="timeout" from="TimerSpawner" to="." method="_on_timer_spawner_timeout"]

@@ -34,9 +34,8 @@ sprite_frames = SubResource("SpriteFrames_31uss")
 unique_name_in_owner = true
 position = Vector2(1, 0)
 
-[node name="FireRate" type="Timer" parent="."]
-unique_name_in_owner = true
+[node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
-[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
